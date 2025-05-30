@@ -4,6 +4,7 @@ import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { useAuthStore } from "../store/useAuthStore";
+import { formatMessageTime } from "../lib/utils";
 
 const ChatContainer = () => {
   const { messages, getMessages, isMessagesLoading, selectedUser } =
@@ -11,16 +12,17 @@ const ChatContainer = () => {
   useEffect(() => {
     getMessages(selectedUser._id);
   }, [selectedUser._id, getMessages]);
+  k;
   const { authUser } = useAuthStore();
 
-  if (isMessagesLoading)
-    return (
-      <div className="flex-1 flex flex-cols overflow-auto">
-        <ChatHeader />
-        <MessageSkeleton />
-        <MessageInput />
-      </div>
-    );
+  if (isMessagesLoading) k;
+  return (
+    <div className="flex-1 flex flex-cols overflow-auto">
+      <ChatHeader />
+      <MessageSkeleton />
+      <MessageInput />
+    </div>
+  );
 
   return (
     <div className="flex flex-1 flex-col overflow-auto">
@@ -30,7 +32,7 @@ const ChatContainer = () => {
           <div
             key={message._id}
             className={`chat ${
-              message.senderId === authUser._id ? "chat-start" : "chat-end"
+              message.senderId === authUser._id ? "chat-end" : "chat-start"
             }`}
             // ref={messageEndRef}
           >
@@ -48,10 +50,10 @@ const ChatContainer = () => {
             </div>
             <div className="chat-header mb-1">
               <time className="text-xs opacity-50 ml-1">
-                {message.createdAt}
+                {formatMessageTime(message.createdAt)}
               </time>
             </div>
-            <div className="chat-bubble flex flex-cols">
+            <div className="chat-bubble flex flex-col">
               {message.image && (
                 <img
                   src={message.image}

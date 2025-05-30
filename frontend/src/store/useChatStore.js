@@ -25,12 +25,14 @@ export const useChatStore = create((set, get) => ({
     set({ isMessagesLoading: true });
     try {
       const res = await axiosInstance.get(`messages/${userId}`);
+      set({ messages: res.data }); // ✅ Set messages in store
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Failed to fetch messages");
     } finally {
       set({ isMessagesLoading: false });
     }
   },
+
   sendMessage: async (messageData) => {
     const { selectedUser, messages } = get();
     try {
@@ -38,7 +40,8 @@ export const useChatStore = create((set, get) => ({
         `/messages/send/${selectedUser._id}`,
         messageData
       );
-      set({ messages: [...messages, res.data] });
+      set({ messages: [...messages, res.data.newMessage] });
+      console.log("Sent message response:", res.data);
     } catch (error) {
       toast.error(error.response.data.message);
     }
