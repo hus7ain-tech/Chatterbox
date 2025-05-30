@@ -12,14 +12,17 @@ import { Loader, Thermometer } from "lucide-react";
 import { Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./App.css";
+import { useChatStore } from "./store/useChatStore";
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { onlineUsers } = useAuthStore();
   const { theme } = useThemeStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
   console.log({ authUser });
+  console.log({ onlineUsers });
 
   if (isCheckingAuth && !authUser) {
     return (
