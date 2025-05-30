@@ -12,10 +12,9 @@ const ChatContainer = () => {
   useEffect(() => {
     getMessages(selectedUser._id);
   }, [selectedUser._id, getMessages]);
-  k;
   const { authUser } = useAuthStore();
 
-  if (isMessagesLoading) k;
+  if (isMessagesLoading);
   return (
     <div className="flex-1 flex flex-cols overflow-auto">
       <ChatHeader />
