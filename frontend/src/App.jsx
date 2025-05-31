@@ -13,6 +13,7 @@ import { Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./App.css";
 import { useChatStore } from "./store/useChatStore";
+
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
   const { onlineUsers } = useAuthStore();
